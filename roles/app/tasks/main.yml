@@ -1,0 +1,28 @@
+---
+- name: Copy website tarball to remote server
+  copy:
+    src: website.tar.gz
+    dest: /var/www/html/website.tar.gz
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Ensure web root directory exists
+  file:
+    path: /var/www/html
+    state: directory
+    mode: '0755'
+
+- name: Extract website files
+  unarchive:
+    src: /var/www/html/website.tar.gz
+    dest: /var/www/html/
+    remote_src: yes
+
+- name: Set ownership for website files
+  file:
+    path: /var/www/html
+    owner: www-data
+    group: www-data
+    recurse: yes
+

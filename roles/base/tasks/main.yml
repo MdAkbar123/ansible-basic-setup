@@ -1,0 +1,27 @@
+---
+- name: Update apt cache and upgrade
+  apt:
+    update_cache: yes
+    upgrade: dist
+    cache_valid_time: 3600
+
+- name: Install base packages
+  apt:
+    name:
+      - curl
+      - vim
+      - git
+      - unzip
+      - ufw
+      - software-properties-common
+    state: present
+
+- name: Ensure UFW allows SSH
+  ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+    policy: allow

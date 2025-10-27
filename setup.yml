@@ -1,0 +1,10 @@
+---
+- hosts: webserver
+  become: true
+  vars:
+    web_root: /var/www/html
+  roles:
+    - { role: base, tags: ["base"] }
+    - { role: nginx, tags: ["nginx"] }
+    - { role: app, tags: ["app"] }
+    - { role: ssh, tags: ["ssh"] }
